@@ -1,4 +1,7 @@
 # periodicname
+
+[![Build Status](https://travis-ci.org/bvreede/periodicname.svg?branch=master)](https://travis-ci.org/bvreede/periodicname)
+
 Can you spell your name with elements of the periodic table?
 
 

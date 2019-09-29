@@ -1,5 +1,6 @@
 import pandas
 
+
 def sequencer(sequence,n):
     global sequences
     if n == 1:
@@ -22,7 +23,8 @@ def sequencer(sequence,n):
         if n2 > 0:
             sequencer(sequence2,n2)
         else:
-            sequences.append(sequence2)         
+            sequences.append(sequence2)      
+
 
 def start(word):
     n = len(word)
@@ -32,6 +34,10 @@ def start(word):
         sequences.append('')
 
 def makename(sequence,name):
+    # Ensure that the sequence and the name match 
+    if sequence.count("S") + sequence.count("D") * 2 != len(name):
+        raise ValueError("Length of sequence (in 'S' and 'D') and name do not match")
+    
     namelist = []
     index = 0
     for i in sequence:
@@ -43,10 +49,6 @@ def makename(sequence,name):
             index += 1
     return(namelist)
 
-## get the data and extract symbols
-ps = pandas.read_csv('periodicdata.csv')
-symbols = ps['symbol'].tolist()
-symlow = [s.lower() for s in symbols]
 
 def name_to_symbol(name):
     sname = []
@@ -64,16 +66,22 @@ def name_to_symbol(name):
 
 
 
-names_to_test = ["Barbara"]
-for name in names_to_test:
-    sequences = []
-    start(name)
-    basescore = 0
-    periodicname = []
-    for s in sequences:
-        namelist = makename(s,name)
-        sname, score = name_to_symbol(namelist)
-        if score > basescore:
-            periodicname = sname
-            basescore = score
-    print("For the name", name, "the closest periodic table sequence is:", periodicname)
+if __name__ == '__main__':
+    ## get the data and extract symbols
+    ps = pandas.read_csv('periodicdata.csv')
+    symbols = ps['symbol'].tolist()
+    symlow = [s.lower() for s in symbols]
+    
+    names_to_test = ["Renato"]
+    for name in names_to_test:
+        sequences = []
+        start(name)
+        basescore = 0
+        periodicname = []
+        for s in sequences:
+            namelist = makename(s,name)
+            sname, score = name_to_symbol(namelist)
+            if score > basescore:
+                periodicname = sname
+                basescore = score
+        print("For the name", name, "the closest periodic table sequence is:", periodicname)

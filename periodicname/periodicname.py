@@ -33,18 +33,10 @@ class Sequencer:
                 self.sequences.append(sequence2)      
 
 
-def start(word):
-    n = len(word)
-    if n > 0:
-        grow_sequence('',n)
-    else:
-        sequences.append('')
-
 def makename(sequence,name):
     # Ensure that the sequence and the name match 
     if sequence.count("S") + sequence.count("D") * 2 != len(name):
         raise ValueError("Length of sequence (in 'S' and 'D') and name do not match")
-    
     namelist = []
     index = 0
     for i in sequence:
@@ -73,7 +65,6 @@ def name_to_symbol(name, symbols, symlow):
 
 def periodic_name(name):
     sequencer = Sequencer(name)
-    #start(name)
     symbols, symlow = get_elements()
     basescore = 0
     periodicname = []
@@ -92,23 +83,6 @@ def get_elements():
     return(symbols,symlow)
 
 if __name__ == '__main__':
-    ## get the data and extract symbols
-    
-    names_to_test = ["Barabra"]
-    for name in names_to_test:
-        periodic_name(name)
-        '''
-        symbols, symlow = get_elements()
-        sequences = []
-        start(name)
-        basescore = 0
-        periodicname = []
-        for s in sequences:
-            namelist = makename(s,name)
-            sname, score = name_to_symbol(namelist)
-            if score > basescore:
-                periodicname = sname
-                basescore = score
-        print("For the name", name, "the closest periodic table sequence is:", periodicname)
-        '''
+    periodic_name("Barbara")
+
         

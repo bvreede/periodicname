@@ -1,15 +1,20 @@
 import pandas
 
 class Sequencer:
+    """ """
+
     def __init__(self,word):
+        """Initialize a sequences object using the name as a template."""
         self.sequences = []
         n = len(word)
         if n > 0:
             self._grow_sequence('',n)
-        else:
-            self.sequences.append('')
 
     def _grow_sequence(self,sequence,n):
+        """Grow a sequences object until the desired length.
+        
+        A sequences object is recursively expanded with double (D) or
+        single (S), until the length of the name is reached."""
         if n == 1:
             sequence += 'S'
             self.sequences.append(sequence)
@@ -84,5 +89,6 @@ def get_elements():
 
 if __name__ == '__main__':
     periodic_name("Barbara")
+    periodic_name("Otie")
 
         

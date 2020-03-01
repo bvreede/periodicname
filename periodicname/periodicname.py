@@ -1,35 +1,42 @@
 import pandas
 
+class Sequencer:
+    def __init__(self,word):
+        self.sequences = []
+        n = len(word)
+        if n > 0:
+            self._grow_sequence('',n)
+        else:
+            self.sequences.append('')
 
-def sequencer(sequence,n):
-    global sequences
-    if n == 1:
-        sequence += 'S'
-        sequences.append(sequence)
-    else:
-        # duplicate
-        sequence1, sequence2 = sequence,sequence
-        n1, n2 = n,n
-        # alter
-        sequence1 += 'S'
-        sequence2 += 'D'
-        n1 -= 1
-        n2 -= 2
-        # proceed
-        if n1 > 0:
-            sequencer(sequence1,n1)
+    def _grow_sequence(self,sequence,n):
+        if n == 1:
+            sequence += 'S'
+            self.sequences.append(sequence)
         else:
-            sequences.append(sequence1)
-        if n2 > 0:
-            sequencer(sequence2,n2)
-        else:
-            sequences.append(sequence2)      
+            # duplicate
+            sequence1, sequence2 = sequence,sequence
+            n1, n2 = n,n
+            # alter
+            sequence1 += 'S'
+            sequence2 += 'D'
+            n1 -= 1
+            n2 -= 2
+            # proceed
+            if n1 > 0:
+                self._grow_sequence(sequence1,n1)
+            else:
+                self.sequences.append(sequence1)
+            if n2 > 0:
+                self._grow_sequence(sequence2,n2)
+            else:
+                self.sequences.append(sequence2)      
 
 
 def start(word):
     n = len(word)
     if n > 0:
-        sequencer('',n)
+        grow_sequence('',n)
     else:
         sequences.append('')
 
@@ -50,7 +57,7 @@ def makename(sequence,name):
     return(namelist)
 
 
-def name_to_symbol(name):
+def name_to_symbol(name, symbols, symlow):
     sname = []
     score = 0
     for n in name:
@@ -64,16 +71,34 @@ def name_to_symbol(name):
         sname.append(sym)
     return(sname,score)
 
+def periodic_name(name):
+    sequencer = Sequencer(name)
+    #start(name)
+    symbols, symlow = get_elements()
+    basescore = 0
+    periodicname = []
+    for s in sequencer.sequences:
+        namelist = makename(s,name)
+        sname, score = name_to_symbol(namelist, symbols, symlow)
+        if score > basescore:
+            periodicname = sname
+            basescore = score
+    print("For the name", name, "the closest periodic table sequence is:", periodicname)
 
+def get_elements():
+    ps = pandas.read_csv('periodicname/data/periodicdata.csv')
+    symbols = ps['symbol'].tolist()
+    symlow = [s.lower() for s in symbols]
+    return(symbols,symlow)
 
 if __name__ == '__main__':
     ## get the data and extract symbols
-    ps = pandas.read_csv('periodicdata.csv')
-    symbols = ps['symbol'].tolist()
-    symlow = [s.lower() for s in symbols]
     
-    names_to_test = ["Renato"]
+    names_to_test = ["Barabra"]
     for name in names_to_test:
+        periodic_name(name)
+        '''
+        symbols, symlow = get_elements()
         sequences = []
         start(name)
         basescore = 0
@@ -85,3 +110,5 @@ if __name__ == '__main__':
                 periodicname = sname
                 basescore = score
         print("For the name", name, "the closest periodic table sequence is:", periodicname)
+        '''
+        

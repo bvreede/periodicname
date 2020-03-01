@@ -1,5 +1,5 @@
 import unittest, os
-import periodicname.periodicname as sequence
+import src.periodicname as sequence
 
 
 

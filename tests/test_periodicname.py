@@ -1,5 +1,8 @@
-import unittest
-import src.sequence as sequence
+import unittest, os
+import periodicname.periodicname as sequence
+
+
+
 
 
 class TestPeriodicNames(unittest.TestCase):

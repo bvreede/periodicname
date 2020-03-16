@@ -61,8 +61,10 @@ class Sequencer:
         return wordlist
 
 def get_elements():
+    """Read the periodic table data and return all symbols"""
     ps = pandas.read_csv('periodicname/data/periodicdata.csv')
     symbols = ps['symbol'].tolist()
+    print("loading data")
     return symbols
 
 class PeriodicElements:

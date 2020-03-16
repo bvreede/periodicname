@@ -1,7 +1,7 @@
 import pandas
 
 class Sequencer:
-    """ """
+    """Processing a word so it can be matched to elements."""
 
     def __init__(self,word):
         """Initialize a sequences object using the word as a template."""
@@ -62,21 +62,24 @@ class Sequencer:
 
 
 class PeriodicElements:
-    """This class handles anything regarding the Periodic System."""
+    """Loading and processing the Periodic System."""
 
     def __init__(self):
         self.symbols = self.get_elements()
         self.symbols_low = [s.lower() for s in self.symbols]
+    
+    test_symbols = []
+    test_symbols_low = []
 
-    def word_to_symbol(self, word, symbols, symbols_low):
-        """"""
+    def word_to_symbol(self, word):
+        """Score a word list on how well it matches the periodic system"""
         sname = []
         score = 0
         for n in word:
             n = n.lower()
-            if n in symbols_low:
-                i = symbols_low.index(n)
-                sym = symbols[i]
+            if n in self.symbols_low:
+                i = self.symbols_low.index(n)
+                sym = self.symbols[i]
                 score += len(sym)
             else:
                 sym = ''
@@ -88,14 +91,22 @@ class PeriodicElements:
         symbols = ps['symbol'].tolist()
         return(symbols)
 
+    @classmethod    
+    def test_get_elements(cls):
+        ps = pandas.read_csv('periodicname/data/periodicdata.csv')
+        test_symbols = ps['symbol'].tolist()
+        test_symbols_low = [s.lower() for s in test_symbols]
+
+
+
 def periodic_name(word):
+    """Generate a sequence of periodic elements from a word."""
     sequencer = Sequencer(word)
     periodic = PeriodicElements()
-    #symbols, symbols_low = get_elements()
     basescore = 0
     periodicname = []
     for word_sequence in sequencer.wordlist:
-        sname, score = periodic.word_to_symbol(word_sequence, periodic.symbols, periodic.symbols_low)
+        sname, score = periodic.word_to_symbol(word_sequence)
         if score > basescore:
             periodicname = sname
             basescore = score
@@ -104,5 +115,9 @@ def periodic_name(word):
 if __name__ == '__main__':
     periodic_name("Barbara")
     periodic_name("Otie")
+    #periodic.word_to_symbol(['B', 'Ar', 'Ba', 'Ra'])
+    print(PeriodicElements.test_symbols)
+    PeriodicElements.test_get_elements()
+    print(PeriodicElements.test_symbols)
 
         

@@ -70,9 +70,6 @@ class PeriodicElements:
     symbols = get_elements()
     symbols_low = [s.lower() for s in symbols]
 
-    def __init__(self):
-        pass
-
     def word_to_symbol(self, word):
         """Score a word list on how well it matches the periodic system"""
         sname = []
@@ -87,11 +84,6 @@ class PeriodicElements:
                 sym = ''
             sname.append(sym)
         return (sname,score)
-
-
-
-
-
 
 
 def periodic_name(word):

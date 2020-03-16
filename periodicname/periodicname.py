@@ -58,18 +58,20 @@ class Sequencer:
             elif i == 'S':
                 wordlist.append(word[index])
                 index += 1
-        return(wordlist)
+        return wordlist
 
+def get_elements():
+    ps = pandas.read_csv('periodicname/data/periodicdata.csv')
+    symbols = ps['symbol'].tolist()
+    return symbols
 
 class PeriodicElements:
     """Loading and processing the Periodic System."""
+    symbols = get_elements()
+    symbols_low = [s.lower() for s in symbols]
 
     def __init__(self):
-        self.symbols = self.get_elements()
-        self.symbols_low = [s.lower() for s in self.symbols]
-    
-    test_symbols = []
-    test_symbols_low = []
+        pass
 
     def word_to_symbol(self, word):
         """Score a word list on how well it matches the periodic system"""
@@ -84,25 +86,18 @@ class PeriodicElements:
             else:
                 sym = ''
             sname.append(sym)
-        return(sname,score)
+        return (sname,score)
 
-    def get_elements(self):
-        ps = pandas.read_csv('periodicname/data/periodicdata.csv')
-        symbols = ps['symbol'].tolist()
-        return(symbols)
 
-    @classmethod    
-    def test_get_elements(cls):
-        ps = pandas.read_csv('periodicname/data/periodicdata.csv')
-        test_symbols = ps['symbol'].tolist()
-        test_symbols_low = [s.lower() for s in test_symbols]
+
+
 
 
 
 def periodic_name(word):
     """Generate a sequence of periodic elements from a word."""
     sequencer = Sequencer(word)
-    periodic = PeriodicElements()
+    periodic = PeriodicElements() #TODO instantiate this only once
     basescore = 0
     periodicname = []
     for word_sequence in sequencer.wordlist:
@@ -115,9 +110,3 @@ def periodic_name(word):
 if __name__ == '__main__':
     periodic_name("Barbara")
     periodic_name("Otie")
-    #periodic.word_to_symbol(['B', 'Ar', 'Ba', 'Ra'])
-    print(PeriodicElements.test_symbols)
-    PeriodicElements.test_get_elements()
-    print(PeriodicElements.test_symbols)
-
-        

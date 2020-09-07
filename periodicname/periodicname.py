@@ -66,9 +66,6 @@ def get_elements():
     periodictable = csv.reader(periodictable)
     periodictable = list(periodictable)
     elements = [el[3] for el in periodictable]
-    #ps = pandas.read_csv('periodicname/data/periodicdata.csv')
-    #symbols = ps['symbol'].tolist()
-    #print("loading data")
     return elements
 
 class PeriodicElements:

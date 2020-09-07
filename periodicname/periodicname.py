@@ -1,4 +1,4 @@
-import pandas
+import csv
 
 class Sequencer:
     """Processing a word so it can be matched to elements."""
@@ -62,10 +62,14 @@ class Sequencer:
 
 def get_elements():
     """Read the periodic table data and return all symbols"""
-    ps = pandas.read_csv('periodicname/data/periodicdata.csv')
-    symbols = ps['symbol'].tolist()
-    print("loading data")
-    return symbols
+    periodictable = open('periodicname/data/periodicdata.csv')
+    periodictable = csv.reader(periodictable)
+    periodictable = list(periodictable)
+    elements = [el[3] for el in periodictable]
+    #ps = pandas.read_csv('periodicname/data/periodicdata.csv')
+    #symbols = ps['symbol'].tolist()
+    #print("loading data")
+    return elements
 
 class PeriodicElements:
     """Loading and processing the Periodic System."""

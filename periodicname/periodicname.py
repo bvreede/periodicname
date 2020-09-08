@@ -29,15 +29,15 @@ class ElementalWord:
             sequence += 'S'
             self.sequences.append(sequence)
         else:
-            # duplicate
+            # duplicate the sequence
             sequence1,sequence2 = sequence,sequence
             n1,n2 = n,n
-            # alter
+            # add S to one, and D to the other; adjust the remaining n
             sequence1 += 'S'
             sequence2 += 'D'
             n1 -= 1
             n2 -= 2
-            # proceed
+            # decide how to proceed, based on remaining n
             if n1 > 0:
                 self._grow_sequence(sequence1,n1)
             else:
@@ -100,7 +100,7 @@ def periodic_name(userword):
                 periodicname = sname
                 basescore = score
         output.append(periodicname)
-    print("For", word, "the closest periodic table sequence is:", output)
+    print("For", userword, "the closest periodic table sequence is:", output)
 
 
 

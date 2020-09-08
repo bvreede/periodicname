@@ -30,8 +30,8 @@ class ElementalWord:
             self.sequences.append(sequence)
         else:
             # duplicate
-            sequence1, sequence2 = sequence,sequence
-            n1, n2 = n,n
+            sequence1,sequence2 = sequence,sequence
+            n1,n2 = n,n
             # alter
             sequence1 += 'S'
             sequence2 += 'D'
@@ -90,7 +90,7 @@ def periodic_name(word):
     basescore = 0
     periodicname = []
     for word_sequence in sequencer.wordlist:
-        sname, score = _score_wordlist(word_sequence)
+        sname,score = _score_wordlist(word_sequence)
         if score > basescore:
             periodicname = sname
             basescore = score

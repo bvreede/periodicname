@@ -23,7 +23,8 @@ class ElementalWord:
         A sequences object is recursively expanded with double (D) or
         single (S), until the length of the word is reached.
         """
-        #TODO: add triple option for elements with 3 letters
+        #TODO: add triple option for elements with 3 letters / make this length-agnostic
+        #See code at the bottom of this script for the beginning of an idea for how to do this.
         if n == 1:
             sequence += 'S'
             self.sequences.append(sequence)
@@ -94,3 +95,34 @@ def periodic_name(word):
             periodicname = sname
             basescore = score
     print("For the word", word, "the closest periodic table sequence is:", periodicname)
+
+
+
+#TODO
+# A much simpler, and length-agnostic way to go from a word to the word chopped up
+# into a list of lists of elements.
+# Unfortunately not yet functional, but a few good nights of sleep away?
+#
+# def word_to_list(word, n):
+#     collection = []
+#     while len(word) > 0:
+#         subcollection = []
+#         for i in range(n):
+#             if len(word) > i:
+#                 subcollection.append(word[:i+1])
+#         collection.append(subcollection)
+#         word = word[1:]
+#     return(collection)
+#
+# Resulting in a matrix of the word, chopped up into pieces as follows
+# Where a new column/first order of the list starts with a new letter
+# And the second list order/row is populated by increasing size chunks of the word.
+# [0][0]    [1][0]    [2][0]    [3][0] (...) [m][0]
+# [0][1]    [1][1]    [2][1]    [3][1]     
+# [0][2]    [1][2]    [2][2]    [3][2]
+# (...)
+# [0][n]    [1][n]    [2][n]    [3][n] (...)       
+#
+# In principle, sampling the next element for a matching word-list could be formulated:
+# [wordlist_element[a][b], wordlist_element[a'][b], (...), wordlist_element[n][b]]
+# Where b is all options from 1:n, and a' is the sum of a+b+1 from the previously selected element.

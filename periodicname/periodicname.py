@@ -84,17 +84,23 @@ def _score_wordlist(word):
     return (sname,score)
 
 
-def periodic_name(word):
-    """Generate a sequence of periodic elements from a word."""
-    sequencer = ElementalWord(word)
-    basescore = 0
-    periodicname = []
-    for word_sequence in sequencer.wordlist:
-        sname,score = _score_wordlist(word_sequence)
-        if score > basescore:
-            periodicname = sname
-            basescore = score
-    print("For the word", word, "the closest periodic table sequence is:", periodicname)
+def periodic_name(userword):
+    """Generate a sequence of periodic elements from a word or sentence."""
+    # split up into individual words
+    sentence = userword.split()
+    output = []
+    # match each word with the periodic system
+    for word in sentence:
+        sequencer = ElementalWord(word)
+        basescore = 0
+        periodicname = []
+        for word_sequence in sequencer.wordlist:
+            sname,score = _score_wordlist(word_sequence)
+            if score > basescore:
+                periodicname = sname
+                basescore = score
+        output.append(periodicname)
+    print("For", word, "the closest periodic table sequence is:", output)
 
 
 

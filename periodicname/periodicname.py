@@ -1,4 +1,4 @@
-import csv
+from . import periodicelements
 
 class Sequencer:
     """Processing a word so it can be matched to elements."""
@@ -60,17 +60,9 @@ class Sequencer:
                 index += 1
         return wordlist
 
-def get_elements():
-    """Read the periodic table data and return all symbols"""
-    periodictable = open('periodicname/data/periodicdata.csv')
-    periodictable = csv.reader(periodictable)
-    periodictable = list(periodictable)
-    elements = [el[3] for el in periodictable]
-    return elements
-
 class PeriodicElements:
     """Loading and processing the Periodic System."""
-    symbols = get_elements()
+    symbols = periodicelements.get_elements()
     symbols_low = [s.lower() for s in symbols]
 
     def word_to_symbol(self, word):

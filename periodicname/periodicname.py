@@ -1,6 +1,10 @@
 from . import periodicelements
 
-class Sequencer:
+symbols = periodicelements.get_elements()
+symbols_low = [s.lower() for s in symbols]
+
+
+class ElementalWord:
     """Processing a word so it can be matched to elements."""
 
     def __init__(self,word):
@@ -60,40 +64,32 @@ class Sequencer:
                 index += 1
         return wordlist
 
-class PeriodicElements:
-    """Loading and processing the Periodic System."""
-    symbols = periodicelements.get_elements()
-    symbols_low = [s.lower() for s in symbols]
 
-    def word_to_symbol(self, word):
-        """Score a word list on how well it matches the periodic system"""
-        sname = []
-        score = 0
-        for n in word:
-            n = n.lower()
-            if n in self.symbols_low:
-                i = self.symbols_low.index(n)
-                sym = self.symbols[i]
-                score += len(sym)
-            else:
-                sym = ''
-            sname.append(sym)
-        return (sname,score)
+def word_to_symbol(word):
+    """Score a word list on how well it matches the periodic system"""
+    sname = []
+    score = 0
+    for n in word:
+        n = n.lower()
+        if n in symbols_low:
+            i = symbols_low.index(n)
+            sym = symbols[i]
+            score += len(sym)
+        else:
+            sym = ''
+        sname.append(sym)
+    return (sname,score)
 
 
 def periodic_name(word):
     """Generate a sequence of periodic elements from a word."""
-    sequencer = Sequencer(word)
-    periodic = PeriodicElements() #TODO instantiate this only once
+    sequencer = ElementalWord(word)
+    #periodic = PeriodicElements() #TODO instantiate this only once
     basescore = 0
     periodicname = []
     for word_sequence in sequencer.wordlist:
-        sname, score = periodic.word_to_symbol(word_sequence)
+        sname, score = word_to_symbol(word_sequence)
         if score > basescore:
             periodicname = sname
             basescore = score
     print("For the word", word, "the closest periodic table sequence is:", periodicname)
-
-if __name__ == '__main__':
-    periodic_name("Barbara")
-    periodic_name("Otie")

@@ -10,6 +10,7 @@ setup(
     license = "MIT",
     url = "https://github.com/bvreede/periodicname",
     packages = find_packages(),
+    package_data = {'periodicname': ['periodicname/data/periodicdata.csv']},
     install_requires=required,
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',

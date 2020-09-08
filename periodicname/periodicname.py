@@ -3,11 +3,13 @@ from . import periodicelements
 symbols = periodicelements.get_elements()
 symbols_low = [s.lower() for s in symbols]
 
-
 class ElementalWord:
     """Processing a word so it can be matched to elements."""
 
     def __init__(self,word):
+        self._make_sequences(word)
+
+    def _make_sequences(self,word):
         """Initialize a sequences object using the word as a template."""
         self.sequences = []
         n = len(word)
@@ -48,7 +50,7 @@ class ElementalWord:
         """Make a list of possible elements from a word.
         
         Based on the word and a possible way to split this word up
-        in elements of 1, 2, or 3 letters, generate a list of hypothetical elements.
+        in elements of 1 or 2 letters, generate a list of hypothetical elements.
         """
         # Ensure that the sequence and the word match 
         if sequence.count("S") + sequence.count("D") * 2 != len(word):
@@ -65,7 +67,7 @@ class ElementalWord:
         return wordlist
 
 
-def word_to_symbol(word):
+def _score_wordlist(word):
     """Score a word list on how well it matches the periodic system"""
     sname = []
     score = 0
@@ -84,11 +86,10 @@ def word_to_symbol(word):
 def periodic_name(word):
     """Generate a sequence of periodic elements from a word."""
     sequencer = ElementalWord(word)
-    #periodic = PeriodicElements() #TODO instantiate this only once
     basescore = 0
     periodicname = []
     for word_sequence in sequencer.wordlist:
-        sname, score = word_to_symbol(word_sequence)
+        sname, score = _score_wordlist(word_sequence)
         if score > basescore:
             periodicname = sname
             basescore = score

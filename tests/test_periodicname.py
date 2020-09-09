@@ -4,7 +4,11 @@ import periodicname.periodicname as pn
 
 class TestPeriodicName(unittest.TestCase):
     def setUp(self):
-        self.sequence = pn.ElementalWord("testword")
+        self.sequence = pn.ElementalWord("Hello World") # instantiate to be able to use the class functions
+
+    def test_make_sequences(self):
+        """Test if the object sequences is correctly generated"""
+        self.assertEqual(self.sequence.sequences[:3],['SSSSSSSSSSS', 'SSSSSSSSSD', 'SSSSSSSSDS'])
 
     def test_make_word_list(self):
         """Testing make_word_list to correctly split a word."""
@@ -18,9 +22,16 @@ class TestPeriodicName(unittest.TestCase):
 
     def test_periodic_name(self):
         """Testing that the package correctly assigns elements to a sentence."""
-        self.assertEqual(pn.periodic_name("Hello World"),[['He', '', '', 'O'], ['W', 'O', '', '', '']])
-    
+        helloworld = pn.periodic_name("Hello World")
 
+        # Test that the right elements are chosen
+        self.assertEqual(helloworld,[['He', '', '', 'O'], ['W', 'O', '', '', '']])
+        
+        # Test that the sentence is split into separate words
+        self.assertEqual(len(helloworld),2)
+     
+
+#class TestPeriodicElements(unittest.TestCase):
 
 
 

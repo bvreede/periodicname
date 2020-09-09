@@ -55,7 +55,7 @@ class ElementalWord:
         in elements of 1 or 2 letters, generate a list of hypothetical elements.
         """
         # Ensure that the sequence and the word match 
-        if sequence.count("S") + sequence.count("D") * 2 != len(word):
+        if sequence.count('S') + sequence.count('D') * 2 != len(word):
             raise ValueError("Length of sequence (in 'S' and 'D') and word do not match")
         wordlist = []
         index = 0

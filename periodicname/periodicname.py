@@ -1,7 +1,7 @@
 from . import periodicelements
 
 # load the elements from the periodic table
-symbols = periodicelements.get_elements()
+symbols = periodicelements._get_elements()
 symbols_low = [s.lower() for s in symbols]
 
 class ElementalWord:

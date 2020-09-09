@@ -36,8 +36,9 @@ class TestPeriodicElements(unittest.TestCase):
     def test_get_elements(self):
         """Test that the periodic elements can be correctly loaded"""
         symbols = pe.get_elements()
-        self.assertEqual(len(symbols),118)
-
+        self.assertEqual(type(symbols),list)
+        self.assertTrue('He' in symbols)
+        self.assertFalse('El' in symbols)
 
 
 

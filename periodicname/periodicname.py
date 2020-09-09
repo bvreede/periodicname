@@ -1,5 +1,6 @@
 from . import periodicelements
 
+# load the elements from the periodic table
 symbols = periodicelements.get_elements()
 symbols_low = [s.lower() for s in symbols]
 
@@ -100,7 +101,7 @@ def periodic_name(userword):
                 periodicname = sname
                 basescore = score
         output.append(periodicname)
-    print("For", userword, "the closest periodic table sequence is:", output)
+    return(output)
 
 
 

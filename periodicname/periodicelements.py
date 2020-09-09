@@ -5,6 +5,7 @@ def _read_periodictable():
     periodictable = open('periodicname/data/periodicdata.csv')
     periodictable_csv = csv.reader(periodictable)
     periodictable_list = list(periodictable_csv)
+    periodictable.close()
     return(periodictable_list) 
 
 def get_elements():

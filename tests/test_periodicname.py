@@ -1,5 +1,6 @@
 import unittest, os
 import periodicname.periodicname as pn
+import periodicname.periodicelements as pe
 
 
 class TestPeriodicName(unittest.TestCase):
@@ -31,8 +32,11 @@ class TestPeriodicName(unittest.TestCase):
         self.assertEqual(len(helloworld),2)
      
 
-#class TestPeriodicElements(unittest.TestCase):
-
+class TestPeriodicElements(unittest.TestCase):
+    def test_get_elements(self):
+        """Test that the periodic elements can be correctly loaded"""
+        symbols = pe.get_elements()
+        self.assertEqual(len(symbols),118)
 
 
 

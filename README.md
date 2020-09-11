@@ -14,7 +14,7 @@ Install the package using pip: `pip install .`
 
 Launch the python interpreter, and import the package: `import periodicname`.
 
-At the moment, there is one function that works: `periodic_name()`. Use it as follows:
+At the moment, there is one function available: `periodic_name()`. Use it as follows:
 
 ```
 periodicname.periodic_name("Hello world")
